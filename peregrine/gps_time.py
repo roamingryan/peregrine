@@ -39,11 +39,19 @@ def gpst_to_utc(t_gpst):
     -------
     t_utc : datetime
     """
-    t_utc = t_gpst - datetime.timedelta(seconds = 16)
-    if t_utc <= datetime.datetime(2012, 7, 1) or \
-       t_utc >= datetime.datetime(2015, 7, 1):
+
+    if t_gpst <= datetime.datetime(2012, 7, 1) or \
+       t_gpst >= datetime.datetime(2016, 12, 31):
         raise ValueError("Don't know how many leap seconds to use.  " +
                          "Please implement something better in gpst_to_utc()")
+
+    # Next leap second is no earlier than 2016-12-31
+    # ref http://datacenter.iers.org/eop/-/somos/5Rgv/latest/16
+    if t_gpst <= datetime.datetime(2015, 7, 1):
+        t_utc = t_gpst - datetime.timedelta(seconds = 16)
+    else:
+        t_utc = t_gpst - datetime.timedelta(seconds = 17)
+
     return t_utc
 
 def utc_to_gpst(t_utc):
@@ -59,9 +67,17 @@ def utc_to_gpst(t_utc):
     -------
     t_gpst : datetime
     """
-    t_gpst = t_utc + datetime.timedelta(seconds = 16)
+
     if t_utc <= datetime.datetime(2012, 7, 1) or \
-       t_utc >= datetime.datetime(2015, 7, 1):
+       t_utc >= datetime.datetime(2016, 12, 31):
         raise ValueError("Don't know how many leap seconds to use.  " +
                          "Please implement something better in utc_to_gpst()")
+
+    # Next leap second is no earlier than 2016-12-31
+    # ref http://datacenter.iers.org/eop/-/somos/5Rgv/latest/16
+    if t_utc <= datetime.datetime(2015, 7, 1):
+        t_gpst = t_utc + datetime.timedelta(seconds = 16)
+    else:
+        t_gpst = t_utc + datetime.timedelta(seconds = 17)
+
     return t_gpst

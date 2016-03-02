@@ -98,7 +98,7 @@ def long_correlation(signal, ca_code, code_phase, doppler, settings, plot=False,
                             code_freq_shift + gps.chip_rate,
                             remCodePhase,
                             doppler + settings.IF,
-                            remCarrPhase, ca_code, settings)
+                            remCarrPhase, ca_code, settings.samplingFreq)
         numSamplesToSkip += blksize
         #print "@ %d, I_P = %.0f, Q_P = %.0f" % (loopCnt, I_P, Q_P)
         i_p.append(I_P)

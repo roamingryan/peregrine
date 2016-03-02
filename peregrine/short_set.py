@@ -560,7 +560,7 @@ def postprocess_short_samples(signal, prior_trajectory, t_prior, settings,
         acqed_prns = [a.prn for a in acqed]
 
         # Improve the observables with fine correlation search
-        obs_cp, obs_dopp = refine_obs(signal, acqed[:], settings, plot = plot)
+        obs_cp, obs_dopp = refine_obs(signal, acqed[:], settings, plot = plot, multi=False)
 
         if settings.useCache:
             if not os.path.exists(obs_cache_dir):

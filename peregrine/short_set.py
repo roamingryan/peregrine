@@ -77,7 +77,7 @@ def nav_bit_hypotheses(n_ms):
     return [k for k,v in itertools.groupby(sorted(hs))]
 
 def long_correlation(signal, ca_code, code_phase, doppler, settings, plot=False, coherent = 0, nav_bit_hypoth = None):
-    from swiftnav.correlate import track_correlate
+    from swiftnav.correlate import track_correlate_
     code_freq_shift = (doppler / gps.l1) * gps.chip_rate
     samples_per_chip = settings.samplingFreq / (gps.chip_rate + code_freq_shift)
     samples_per_code = samples_per_chip * gps.chips_per_code
